@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, Picker} from 'react-native';
+import { StyleSheet, View, Text, Picker, Switch} from 'react-native';
 
 export default class App extends Component {
   constructor(props){
@@ -13,7 +13,9 @@ export default class App extends Component {
         {nome: 'Serviço 4', valor: 40},
         {nome: 'Serviço 5', valor: 50},
         {nome: 'Serviço 6', valor: 60}
-      ]
+      ],
+
+      valorSwitch:false
     };
   }
 
@@ -29,6 +31,9 @@ export default class App extends Component {
           {servicosItem}
         </Picker>
         <Text style={styles.valor}>R$ {this.state.servicos[this.state.servico].valor.toFixed(2)}</Text>
+
+        <Switch thumbColor="black" trackColor={{false: 'brown', true: 'green'}} value={this.state.valorSwitch} onValueChange={(v)=>this.setState({valorSwitch:v})}></Switch>
+        <Text>{(this.state.valorSwitch)?'selecionado':'não selecionado'}</Text>
       </View>
     );
   }
