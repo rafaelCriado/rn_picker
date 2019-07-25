@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, Picker, Switch, Slider} from 'react-native';
+import { StyleSheet, View, Text, Picker, Switch, Slider, Modal, Button} from 'react-native';
+
 
 export default class App extends Component {
   constructor(props){
@@ -17,8 +18,13 @@ export default class App extends Component {
 
       valorSwitch:false,
 
-      valorSlider:50
+      valorSlider:50,
+      modalVisible:false,
     };
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   render(){
@@ -39,15 +45,29 @@ export default class App extends Component {
         <Text>{(this.state.valorSwitch)?'selecionado':'não selecionado'}</Text>
         
         <Text>Exemplo de Slider</Text>
-        <Slider minimumTrackTintColor='red' step={1} value={this.state.valorSlider} minimumValue={0} maximumValue={100} onValueChange={(v)=>this.setState({valorSlider:v})}></Slider>
+        <Slider minimumTrackTintColor='red' thumbTouchSize={{width: 40, height: 40}} trackStyle={{height:50}} step={1} value={this.state.valorSlider} minimumValue={0} maximumValue={100} onValueChange={(v)=>this.setState({valorSlider:v})}></Slider>
         <Text>{this.state.valorSlider}%</Text>
         
+        <Modal animationType="slide" visible={this.state.modalVisible}>
+          <View style={styles.modal}>
+            <Text>Testando 1,2,3,...</Text>
+            <Button title="Fechar Modal" onPress={() => {this.setModalVisible(false);}}></Button>
+          </View>
+        </Modal>
+        <Button title="Abrir Modal" onPress={() => {this.setModalVisible(true);}}></Button>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  modal:{
+    flex:1,
+    padding:20,
+    backgroundColor:'blue',
+    alignContent:"center",
+    alignItems:"center"
+  },
   body: {
     backgroundColor: '#DDD',
     flex:1
