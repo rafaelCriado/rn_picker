@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, Picker, Switch} from 'react-native';
+import { StyleSheet, View, Text, Picker, Switch, Slider} from 'react-native';
 
 export default class App extends Component {
   constructor(props){
@@ -15,7 +15,9 @@ export default class App extends Component {
         {nome: 'Serviço 6', valor: 60}
       ],
 
-      valorSwitch:false
+      valorSwitch:false,
+
+      valorSlider:50
     };
   }
 
@@ -25,15 +27,21 @@ export default class App extends Component {
     });
 
     return (
-      <View style={styles.body}>
+      <View style={styles.body}> 
         <Text style={styles.titulo}>Teste Picker</Text>
         <Picker selectedValue={this.state.servico} onValueChange={(itemValue,itemIndex)=>this.setState({servico:itemValue})}>
           {servicosItem}
         </Picker>
         <Text style={styles.valor}>R$ {this.state.servicos[this.state.servico].valor.toFixed(2)}</Text>
 
+        <Text>Exemplo de Switch</Text>
         <Switch thumbColor="black" trackColor={{false: 'brown', true: 'green'}} value={this.state.valorSwitch} onValueChange={(v)=>this.setState({valorSwitch:v})}></Switch>
         <Text>{(this.state.valorSwitch)?'selecionado':'não selecionado'}</Text>
+        
+        <Text>Exemplo de Slider</Text>
+        <Slider minimumTrackTintColor='red' step={1} value={this.state.valorSlider} minimumValue={0} maximumValue={100} onValueChange={(v)=>this.setState({valorSlider:v})}></Slider>
+        <Text>{this.state.valorSlider}%</Text>
+        
       </View>
     );
   }
